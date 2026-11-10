@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101b2b">
+<title>Mandato em Foco | Transparência parlamentar</title>
+<style>
+:root{--navy:#101b2b;--navy2:#18283d;--ink:#172334;--muted:#6d7b8c;--line:#e5eaf0;--paper:#f5f7fa;--white:#fff;--teal:#087f8c;--teal2:#e7f5f5;--gold:#e8b54b;--green:#19856b;--shadow:0 12px 32px rgba(16,27,43,.07)}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink)}button,input,select{font:inherit}button{cursor:pointer}
+.app{min-height:100vh;display:grid;grid-template-columns:250px 1fr}
+.sidebar{background:var(--navy);color:#d8e1eb;padding:26px 18px;display:flex;flex-direction:column;gap:30px}
+.brand{display:flex;align-items:center;gap:11px;padding:0 8px}.brandmark{width:38px;height:38px;border-radius:12px;background:linear-gradient(145deg,#12a1a0,#08707e);display:grid;place-items:center;color:white;font-size:20px;font-weight:800}.brand strong{display:block;color:#fff;font-size:16px;letter-spacing:.1px}.brand small{color:#94a6b9;font-size:11px}
+.nav-label{font-size:10px;text-transform:uppercase;letter-spacing:1.3px;color:#8193a8;padding:0 12px;margin:4px 0 8px}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;color:#b8c5d3;text-align:left;padding:12px;border-radius:10px;display:flex;align-items:center;gap:12px;font-size:13px}.nav button:hover,.nav button.active{background:#21364e;color:#fff}.nav .ico{width:19px;text-align:center;font-size:16px}.side-note{margin-top:auto;border:1px solid #34485e;background:#17283b;border-radius:14px;padding:14px;font-size:11px;line-height:1.55;color:#aebdcb}.side-note b{display:block;color:#fff;font-size:12px;margin-bottom:5px}
+.main{min-width:0}.topbar{height:76px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 34px;gap:18px}.crumb{font-size:13px;color:var(--muted)}.crumb b{color:var(--ink)}.top-actions{display:flex;align-items:center;gap:12px}.status{font-size:11px;color:#936b1b;background:#fff6df;border:1px solid #f4e3b8;padding:7px 10px;border-radius:30px}.avatar{width:34px;height:34px;border-radius:50%;background:#e5f2f2;color:var(--teal);display:grid;place-items:center;font-size:12px;font-weight:800}
+.content{max-width:1440px;margin:auto;padding:30px 34px 60px}.welcome{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:25px}.eyebrow{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal);font-weight:800}.welcome h1{font-size:28px;letter-spacing:-.8px;margin:7px 0 7px}.welcome p{color:var(--muted);margin:0;font-size:13px;line-height:1.6}.btn{border:0;border-radius:10px;padding:11px 15px;background:var(--teal);color:#fff;font-weight:700;font-size:12px;box-shadow:0 5px 14px #087f8c22}.btn:hover{background:#066d77}.btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}.metric{background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px 18px;box-shadow:0 3px 12px #101b2b05}.metric-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:11px}.metric-icon{width:30px;height:30px;border-radius:9px;background:var(--teal2);display:grid;place-items:center;color:var(--teal);font-size:15px}.metric strong{display:block;font-size:25px;margin:11px 0 4px;letter-spacing:-.6px}.metric small{font-size:10px;color:var(--muted)}
+.panel{background:#fff;border:1px solid var(--line);border-radius:15px;box-shadow:0 3px 12px #101b2b05;margin-bottom:20px}.panel-head{padding:19px 20px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px}.panel-head h2{font-size:15px;margin:0}.panel-head p{font-size:11px;color:var(--muted);margin:5px 0 0}.filters{padding:0 20px 16px;display:flex;gap:10px;flex-wrap:wrap}.search{position:relative;flex:1;min-width:190px}.search input{width:100%;padding:11px 13px 11px 36px;border:1px solid var(--line);border-radius:9px;background:#fbfcfd;outline:none;font-size:12px}.search span{position:absolute;left:12px;top:9px;color:#8290a0}.filters select{padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:#fbfcfd;color:#435164;font-size:12px;min-width:145px}
+.tabs{display:flex;gap:4px;padding:0 20px;border-bottom:1px solid var(--line);overflow:auto}.tabs button{border:0;background:none;color:var(--muted);font-size:12px;padding:12px 14px;border-bottom:2px solid transparent;white-space:nowrap}.tabs button.active{color:var(--teal);font-weight:800;border-color:var(--teal)}
+.activity-list{padding:4px 20px}.activity{display:grid;grid-template-columns:40px 1fr auto;gap:13px;padding:16px 0;border-bottom:1px solid #eef1f4;align-items:start}.activity:last-child{border-bottom:0}.act-icon{width:38px;height:38px;border-radius:11px;background:#eff5f7;display:grid;place-items:center;font-size:17px}.activity h3{font-size:12px;margin:0 0 5px}.activity p{font-size:11px;color:var(--muted);line-height:1.5;margin:0}.meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}.tag{font-size:9px;border-radius:30px;padding:5px 8px;background:#f0f3f6;color:#617083}.tag.verified{background:#e7f5ef;color:#177254}.tag.declared{background:#fff5df;color:#92691b}.tag.contested{background:#fceaea;color:#9a3c3c}.date{font-size:10px;color:#8491a0;white-space:nowrap}
+.lower{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}.source-row{display:flex;gap:12px;padding:13px 20px;border-top:1px solid #eef1f4;align-items:center}.source-dot{width:8px;height:8px;border-radius:50%;background:var(--green)}.source-row strong{font-size:11px;display:block}.source-row small{font-size:10px;color:var(--muted)}.source-row .right{margin-left:auto;font-size:10px;color:var(--teal)}
+.notice{background:#eef7f7;border:1px solid #d7ebeb;border-radius:12px;padding:14px 16px;font-size:11px;line-height:1.55;color:#42636a;margin-bottom:18px}.notice b{color:#155d65}
+.empty{padding:30px;text-align:center;color:var(--muted);font-size:12px}.error{background:#fff1f0;border:1px solid #f2ceca;color:#8d3028;border-radius:10px;padding:12px 14px;margin:0 0 16px;font-size:12px;line-height:1.5}
+.footer{font-size:10px;color:#8b97a5;text-align:center;padding:18px}
+.modal-backdrop{position:fixed;inset:0;background:#07132188;display:none;align-items:center;justify-content:center;padding:20px;z-index:10}.modal-backdrop.show{display:flex}.modal{background:#fff;border-radius:16px;max-width:560px;width:100%;padding:23px;box-shadow:var(--shadow);max-height:90vh;overflow:auto}.modal-head{display:flex;justify-content:space-between;align-items:center}.modal h2{font-size:18px;margin:0}.close{border:0;background:#f1f4f6;border-radius:8px;width:30px;height:30px}.modal p{font-size:12px;color:var(--muted);line-height:1.6}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}.detail{background:#f6f8fa;border-radius:10px;padding:12px}.detail small{display:block;color:var(--muted);font-size:10px}.detail b{display:block;font-size:12px;margin-top:5px}
+@media(max-width:900px){.app{grid-template-columns:72px 1fr}.sidebar{padding:22px 10px}.brand{justify-content:center;padding:0}.brand>div:last-child,.nav-label,.nav button .label,.side-note{display:none}.nav button{justify-content:center;padding:13px 8px}.nav .ico{font-size:18px}.content{padding:25px 20px}.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.app{display:block}.sidebar{height:62px;padding:10px 14px;flex-direction:row;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5}.brand{justify-content:flex-start}.brand>div:last-child{display:block}.nav{display:flex;gap:2px}.nav button{padding:9px}.nav button:nth-child(n+4){display:none}.nav .label{display:none}.topbar{height:55px;padding:0 17px}.status{display:none}.content{padding:22px 15px 40px}.welcome{display:block}.welcome h1{font-size:24px}.welcome .btn{margin-top:15px}.grid{gap:9px}.metric{padding:13px}.metric strong{font-size:21px}.lower{grid-template-columns:1fr}.panel-head{padding:16px}.filters{padding:0 14px 14px}.tabs{padding:0 10px}.activity-list{padding:0 14px}.activity{grid-template-columns:34px 1fr}.activity .date{grid-column:2}.act-icon{width:32px;height:32px}.detail-grid{grid-template-columns:1fr 1fr}}
+
+/* Navegação rápida da página inicial */
+.quick-actions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:0 0 22px}
+.quick-link{border:1px solid var(--line);background:#fff;border-radius:15px;padding:17px;text-align:left;display:flex;gap:13px;align-items:flex-start;min-height:112px;box-shadow:0 3px 12px rgba(16,27,43,.025);transition:transform .18s,border-color .18s,box-shadow .18s}
+.quick-link:hover{transform:translateY(-2px);border-color:#9ccfd0;box-shadow:var(--shadow)}
+.quick-link .quick-icon{width:38px;height:38px;flex:0 0 38px;border-radius:11px;background:var(--teal2);color:var(--teal);display:grid;place-items:center;font-size:19px;font-weight:800}
+.quick-link strong{display:block;font-size:13px;margin:1px 0 5px;color:var(--ink)}
+.quick-link small{display:block;color:var(--muted);font-size:10px;line-height:1.5}
+.person-card{grid-template-columns:58px minmax(0,1fr) auto;align-items:center;gap:14px}
+.person-photo{width:54px;height:64px;border-radius:12px;overflow:hidden;background:#e8eef2;display:grid;place-items:center;color:#476071;font-size:15px;font-weight:800;position:relative;box-shadow:inset 0 0 0 1px rgba(20,40,60,.08)}
+.person-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top}
+.person-photo .initials{position:absolute;inset:0;display:grid;place-items:center}
+.person-card h3{font-size:13px;margin:0 0 5px}
+.person-card .date{font-size:10px;color:var(--muted)}
+.photo-credit{font-size:9px;color:#728294;margin-left:2px}
+@media(max-width:1100px){.quick-actions{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.quick-actions{grid-template-columns:1fr 1fr;gap:8px}.quick-link{padding:12px;min-height:100px;gap:9px}.quick-link .quick-icon{width:32px;height:32px;flex-basis:32px;font-size:16px}.quick-link strong{font-size:11px}.quick-link small{font-size:9px}.person-card{grid-template-columns:48px minmax(0,1fr);gap:11px}.person-photo{width:46px;height:54px}.person-card .date{grid-column:2}}
+
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="brandmark">M</div><div><strong>Mandato em Foco</strong><small>TRANSPARÊNCIA CIDADÃ</small></div></div>
+  <div><div class="nav-label">Plataforma</div><nav class="nav">
+    <button class="active" data-view="inicio"><span class="ico">▦</span><span class="label">Visão geral</span></button>
+    <button data-view="parlamentares"><span class="ico">♙</span><span class="label">Parlamentares</span></button>
+    <button data-view="proposicoes"><span class="ico">▤</span><span class="label">Proposições</span></button>
+    <button data-view="fiscalizacao"><span class="ico">⌕</span><span class="label">Fiscalização</span></button>
+    <button data-view="fontes"><span class="ico">◎</span><span class="label">Fontes oficiais</span></button>
+  </nav></div>
+  <div class="side-note"><b>Informação verificável.</b> Cada registro deve apontar para sua fonte pública. A plataforma organiza dados; não substitui os portais oficiais.</div>
+</aside>
+<main class="main">
+<header class="topbar"><div class="crumb">Mandato em Foco <span> / </span><b id="crumb">Visão geral</b></div><div class="top-actions"><span class="status" id="connectionStatus">● Conectando ao banco...</span><div class="avatar">MF</div></div></header>
+<div class="content">
+<section class="welcome"><div><div class="eyebrow">Acompanhe. Compare. Verifique.</div><h1>Transparência parlamentar<br>em linguagem simples.</h1><p>Consulte registros públicos da atividade legislativa no Estado do Rio de Janeiro.<br>Os dados exibidos dependem dos registros públicos cadastrados e das fontes disponíveis.</p></div><button class="btn" onclick="showModal('Como funciona')">＋ Como funciona</button></section>
+<section class="quick-actions" id="quickActions" aria-label="Acesso rápido">
+  <button class="quick-link" type="button" data-go-view="parlamentares"><span class="quick-icon">♙</span><span><strong>Conheça os parlamentares</strong><small>Perfis, partidos e fotos oficiais dos representantes.</small></span></button>
+  <button class="quick-link" type="button" data-go-view="proposicoes"><span class="quick-icon">▤</span><span><strong>Consulte proposições</strong><small>Projetos e demais iniciativas legislativas cadastradas.</small></span></button>
+  <button class="quick-link" type="button" data-go-view="fiscalizacao"><span class="quick-icon">⌕</span><span><strong>Acompanhe a fiscalização</strong><small>Registros de controle, pedidos e providências.</small></span></button>
+  <button class="quick-link" type="button" data-go-view="fontes"><span class="quick-icon">◎</span><span><strong>Consulte fontes oficiais</strong><small>Portais institucionais e documentos de origem.</small></span></button>
+</section>
+<div class="notice" id="integrityNotice"><b>Transparência:</b> a plataforma exibe somente registros disponibilizados pelo banco de dados e autorizados pelas regras de acesso. A ausência de um registro não prova que a atividade não ocorreu.</div>
+<div id="connectionError"></div>
+<section class="grid">
+<div class="metric"><div class="metric-top">Parlamentares no catálogo <span class="metric-icon">♙</span></div><strong id="metricParliamentarians">—</strong><small>Registros públicos cadastrados</small></div>
+<div class="metric"><div class="metric-top">Proposições acompanhadas <span class="metric-icon">▤</span></div><strong id="metricProposals">—</strong><small>Atividades classificadas como proposição</small></div>
+<div class="metric"><div class="metric-top">Registros com fonte identificada <span class="metric-icon">✓</span></div><strong id="metricVerified">—</strong><small>Sistema ou documento oficial identificado</small></div>
+<div class="metric"><div class="metric-top">Municípios cobertos <span class="metric-icon">⌖</span></div><strong id="metricMunicipalities">—</strong><small>Municípios com parlamentar cadastrado</small></div>
+</section>
+<section class="panel" id="mainPanel">
+<div class="panel-head"><div><h2 id="panelTitle">Atividade parlamentar</h2><p id="panelSub">Registros públicos cadastrados na plataforma</p></div><button class="btn secondary" onclick="showModal('Critérios de verificação')">Critérios de verificação</button></div>
+<div class="filters"><div class="search"><span>⌕</span><input id="search" placeholder="Buscar por assunto, parlamentar ou documento..." oninput="renderList()"></div>
+<select id="kind" onchange="renderList()"><option value="">Todas as atividades</option><option>Proposição</option><option>Votação</option><option>Comissão</option><option>Fiscalização</option><option>Audiência pública</option><option>Outra atividade</option></select>
+<select id="level" onchange="renderList()"><option value="">Todas as esferas</option><option>Estadual</option><option>Municipal</option></select></div>
+<div class="tabs"><button class="active" data-tab="todos">Todos</button><button data-tab="verificados">Com fonte identificada</button><button data-tab="declarados">Declarados</button></div>
+<div class="activity-list" id="activityList"><div class="empty">Carregando registros públicos...</div></div>
+</section>
+<div class="lower">
+<section class="panel"><div class="panel-head"><div><h2>Fontes oficiais prioritárias</h2><p>Portais institucionais e fontes vinculadas aos registros publicados</p></div></div><div id="sourceList">
+<div class="source-row"><span class="source-dot"></span><div><strong>ALERJ — Assembleia Legislativa do RJ</strong><small>Portal institucional</small></div><a class="right" href="https://www.alerj.rj.gov.br/" target="_blank" rel="noopener noreferrer">Abrir ↗</a></div>
+<div class="source-row"><span class="source-dot"></span><div><strong>Câmara Municipal do Rio de Janeiro</strong><small>Portal institucional</small></div><a class="right" href="https://www.camara.rio/" target="_blank" rel="noopener noreferrer">Abrir ↗</a></div>
+<div class="source-row"><span class="source-dot"></span><div><strong>Diário Oficial do Estado do RJ</strong><small>Portal institucional</small></div><a class="right" href="https://www.ioerj.com.br/" target="_blank" rel="noopener noreferrer">Abrir ↗</a></div>
+</div></section>
+<section class="panel"><div class="panel-head"><div><h2>Compromisso de integridade</h2><p>Como os dados devem ser apresentados</p></div></div>
+<div class="source-row"><div class="metric-icon">✓</div><div><strong>Fonte e data</strong><small>Todo registro deve permitir identificar sua origem.</small></div></div>
+<div class="source-row"><div class="metric-icon">≠</div><div><strong>Atividade não é resultado</strong><small>Projeto apresentado não será tratado como política executada.</small></div></div>
+<div class="source-row"><div class="metric-icon">◈</div><div><strong>Privacidade</strong><small>Dados pessoais de cidadãos não serão expostos.</small></div></div>
+</section></div>
+<div class="footer">Mandato em Foco · Dados públicos com rastreabilidade · Versão conectada ao Supabase</div>
+</div></main></div>
+<div class="modal-backdrop" id="modal" onclick="if(event.target===this)closeModal()"><div class="modal"><div class="modal-head"><h2 id="modalTitle">Detalhes</h2><button class="close" onclick="closeModal()">×</button></div><div id="modalBody"></div></div></div>
+
+<!-- Biblioteca oficial do Supabase. A chave abaixo é publishable e as permissões são controladas por RLS. -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://wzhshedhdnrjbsdawhcl.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_9tnYnP0kLZ2nEFMY0bLU6g_FbmmtgzB";
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+let parliamentarians = [];
+let mandates = [];
+let records = [];
+let sources = [];
+let activeTab = "todos";
+let currentView = "inicio";
+
+const $ = id => document.getElementById(id);
+const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+const normalize = value => String(value ?? "").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+const formatDate = value => {
+  if (!value) return "Data não informada";
+  const m = String(value).match(/^(\d{4})-(\d{2})-(\d{2})/);
+  return m ? `${m[3]}/${m[2]}/${m[1]}` : String(value);
+};
+const proofLabels = {
+  official_system:"Sistema oficial",
+  official_document:"Documento oficial",
+  declared_unverified:"Declarado, não verificado",
+  contested:"Contestado",
+  corrected:"Corrigido"
+};
+const isVerified = level => ["official_system","official_document"].includes(String(level || "").toLowerCase());
+const kindLabel = raw => {
+  const v = normalize(raw);
+  if (v.includes("propos") || v.includes("projeto") || v.includes("lei")) return "Proposição";
+  if (v.includes("vota")) return "Votação";
+  if (v.includes("comiss")) return "Comissão";
+  if (v.includes("fiscal") || v.includes("pedido de inform") || v.includes("requerimento")) return "Fiscalização";
+  if (v.includes("audien")) return "Audiência pública";
+  return "Outra atividade";
+};
+const kindIcon = kind => ({"Proposição":"▤","Votação":"✓","Comissão":"▦","Fiscalização":"⌕","Audiência pública":"◉","Outra atividade":"•"}[kind] || "•");
+const levelOf = person => {
+  const office = normalize(person?.office_type);
+  const house = normalize(person?.legislative_house);
+  if (office.includes("vereador") || house.includes("camara") || house.includes("municip")) return "Municipal";
+  if (office.includes("deputado") || house.includes("alerj") || house.includes("estad")) return "Estadual";
+  return "Não identificada";
+};
+const PUBLIC_PHOTOS = {
+  "ALAN LOPES": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_133211AlanLopes.jpg",
+  "ALEXANDRE KNOPLOCH": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/28012026_1149073x4.jpeg",
+  "ANDERSON MORAES": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_150559AndersonMorais.jpg",
+  "ANDRE CORREA": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/07062020_234145AC500.jpg",
+  "ARTHUR MONTEIRO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/09032023_170259ArthurMonteiro.jpg",
+  "BRAZÃO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_150811Brazao.jpg",
+  "BRUNO DAUAIRE": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/19022019_162744BrunoDauaire_deputado3x4-4103.jpg",
+  "CARLA MACHADO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_150853CarlaMachado.jpg",
+  "CARLINHOS BNH": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_150938CarlinhosBNH.jpg",
+  "CARLOS MACEDO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_151018CarlosMacedo.jpg",
+  "CARLOS MINC": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_151104CarlosMinc.jpg",
+  "CELIA JORDÃO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_151141CeliaJordao.jpg",
+  "CHICO MACHADO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/01042026_170853chico%203%20.%204.jpeg",
+  "CLAUDIO CAIADO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_151219ClaudioCaiado.jpg",
+  "DANI BALBI": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_151439DaniBalbi.jpg",
+  "DANI MONTEIRO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_151518DaniMonteiro.jpg",
+  "DANNIEL LIBRELON": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_151354DanbielLibrelon.jpg",
+  "DELEGADO CARLOS AUGUSTO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/19022019_162912DelegadoCarlosAugusto_deputado3x4-4121.jpg",
+  "DIONISIO LINS": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_151650DionisioLins.jpg",
+  "DOUGLAS RUAS": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/16042026_102741douglas%203%20%204.jpeg",
+  "DR. DEODALTO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_151911DrDeodalto.jpg",
+  "DR. PEDRO RICARDO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_151959DrPedroRicardo.jpg",
+  "ELIKA TAKIMOTO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_152039ElikaTakimoto.jpg",
+  "FÁBIO SILVA": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_152226FabioSilva.jpg",
+  "FELIPINHO RAVIS": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_152406FilipinhoRavis.jpg",
+  "FILIPE SOARES": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_152308FilipeSoares.jpg",
+  "FILIPPE POUBEL": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_152450FilippePoubel.jpg",
+  "FLAVIO SERAFINI": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_152535FlavioSerafini.jpg",
+  "FRANCIANE MOTTA": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_152700FrancianeMotta.jpg",
+  "FRED PACHECO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_152822FredPacheco.jpg",
+  "GIOVANI RATINHO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_152913GiovaniRatinho.jpg",
+  "GISELLE MONTEIRO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_153001GiselleMonteiro.jpg",
+  "GUILHERME DELAROLI": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_151603Delaroli.jpg",
+  "GUILHERME SCHLEDER": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/14062024_175405guilherme2.jpeg",
+  "FABIANI VASCONCELLOS": "https://f.i.uol.com.br/folha/eleicoes/2022/rj/rio-de-janeiro/7_292701.jpg?20231219162944",
+  "GUSTAVO TUTUCA": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/19022019_152535GustavoTutuca_deputado3x4-3959.jpg",
+  "INDIA ARMELAU": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_154118IndiaArmelau.jpg",
+  "JAIR BITTENCOURT": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_154223JairBittencourt.jpg",
+  "JARI OLIVEIRA": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_154528Jari.jpg",
+  "JORGE FELIPPE NETO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/11062025_114839felippe.jpeg",
+  "JULIO ROCHA": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_154857JulioRocha.jpg",
+  "LILIAN BEHRING": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/13022025_154823Lilian.jpeg",
+  "LUCINHA": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/09032023_170331Lucinha.jpg",
+  "LUIZ PAULO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_155116LuizPaulo.jpg",
+  "MARCELO DINO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_155157MarceloDino.jpg",
+  "MÁRCIO GUALBERTO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_155243MarcioGualberto.jpg",
+  "MARINA DO MST": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_155323MarinadoMST.jpg",
+  "MARTHA ROCHA": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_155359MarthaRocha.jpg",
+  "MUNIR NETO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_155445MunirNeto.jpg",
+  "PROF JOSEMAR": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_155615ProfessorJossemar.jpg",
+  "RAFAEL NOBRE": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_155715RafaelNobre.jpg",
+  "RAFAEL PICCIANI": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/01042026_171040rafa%203.4.jpg",
+  "RENAN JORDY": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/13052024_131315jordy6.jpeg",
+  "RENATA SOUZA": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_155753RenataSouza.jpg",
+  "RENATO MACHADO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_155836RenatoMachado.jpg",
+  "RENATO MIRANDA": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/19032025_143243renato%20miranda.jpeg",
+  "RODRIGO AMORIM": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_155958RodrigoAmorim.jpg",
+  "ROSENVERG REIS": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_160038RonsenvegReis.jpg",
+  "SAMUEL MALAFAIA": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_160114SamuelMalafaia.jpg",
+  "SARAH PONCIO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/13022025_154859Sarah.jpeg",
+  "SERGIO FERNANDES": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_160156SergioFernades.jpg",
+  "THIAGO GAGLIASSO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_160319ThiagoGagliasso.jpg",
+  "TIA JU": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_160437TiaJu.jpg",
+  "VAL CEASA": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/19022019_163338ValCeasa_deputado3x4-3752.jpg",
+  "VALDECY DA SAÚDE": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_160532ValdecyDaSaude.jpg",
+  "VERÔNICA LIMA": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/03022023_154626Ver%C3%B4nicaLima_deputado3x4.jpg",
+  "VINICIUS COZZOLINO": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/24022023_160629ViniciosCozzolino.jpg",
+  "VITOR JUNIOR": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/09032023_155508VitorJunior.jpg",
+  "WELLINGTON JOSÉ": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/05012021_151143perfil_wellingtonJos%C3%A9_500x500_ok_RafaelWallace-9283.jpg",
+  "YURI MOURA": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/04052023_155353Yuri.jpeg",
+  "ZEIDAN": "https://www.alerj.rj.gov.br/Uploads/PerfilDeputado/Imagem/06022026_161639Zei.jpeg"
+};
+const ALERJ_PROFILE_URLS = {
+  "ALAN LOPES": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/505?Legislatura=20",
+  "ALEXANDRE KNOPLOCH": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/420?Legislatura=20",
+  "ANDERSON MORAES": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/422?Legislatura=20",
+  "ANDRE CORREA": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/346?Legislatura=20",
+  "ARTHUR MONTEIRO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/501?Legislatura=20",
+  "BRAZÃO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/439?Legislatura=20",
+  "BRUNO DAUAIRE": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/377?Legislatura=20",
+  "CARLA MACHADO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/508?Legislatura=20",
+  "CARLINHOS BNH": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/494?Legislatura=20",
+  "CARLOS MACEDO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/378?Legislatura=20",
+  "CARLOS MINC": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/310?Legislatura=20",
+  "CELIA JORDÃO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/464?Legislatura=20",
+  "CHICO MACHADO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/417?Legislatura=20",
+  "CLAUDIO CAIADO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/507?Legislatura=20",
+  "DANI BALBI": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/484?Legislatura=20",
+  "DANI MONTEIRO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/425?Legislatura=20",
+  "DANNIEL LIBRELON": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/426?Legislatura=20",
+  "DELEGADO CARLOS AUGUSTO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/427?Legislatura=20",
+  "DIONISIO LINS": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/291?Legislatura=20",
+  "DOUGLAS RUAS": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/478?Legislatura=20",
+  "DR. DEODALTO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/380?Legislatura=20",
+  "DR. PEDRO RICARDO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/460?Legislatura=20",
+  "ELIKA TAKIMOTO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/481?Legislatura=20",
+  "FÁBIO SILVA": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/361?Legislatura=20",
+  "FELIPINHO RAVIS": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/490?Legislatura=20",
+  "FILIPE SOARES": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/384?Legislatura=20",
+  "FILIPPE POUBEL": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/429?Legislatura=20",
+  "FLAVIO SERAFINI": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/400?Legislatura=20",
+  "FRANCIANE MOTTA": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/430?Legislatura=20",
+  "FRED PACHECO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/504?Legislatura=20",
+  "GIOVANI RATINHO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/431?Legislatura=20",
+  "GISELLE MONTEIRO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/482?Legislatura=20",
+  "GUILHERME DELAROLI": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/479?Legislatura=20",
+  "GUILHERME SCHLEDER": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/495?Legislatura=20",
+  "GUSTAVO TUTUCA": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/374?Legislatura=20",
+  "INDIA ARMELAU": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/485?Legislatura=20",
+  "JAIR BITTENCOURT": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/385?Legislatura=20",
+  "JARI OLIVEIRA": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/476?Legislatura=20",
+  "JORGE FELIPPE NETO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/389?Legislatura=20",
+  "JULIO ROCHA": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/500?Legislatura=20",
+  "LILIAN BEHRING": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/514?Legislatura=20",
+  "LUCINHA": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/326?Legislatura=20",
+  "LUIZ PAULO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/269?Legislatura=20",
+  "MARCELO DINO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/435?Legislatura=20",
+  "MÁRCIO GUALBERTO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/436?Legislatura=20",
+  "MARINA DO MST": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/491?Legislatura=20",
+  "MARTHA ROCHA": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/390?Legislatura=20",
+  "MUNIR NETO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/497?Legislatura=20",
+  "PROF JOSEMAR": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/502?Legislatura=20",
+  "RAFAEL NOBRE": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/489?Legislatura=20",
+  "RAFAEL PICCIANI": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/344?Legislatura=20",
+  "RENAN JORDY": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/511?Legislatura=20",
+  "RENATA SOUZA": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/441?Legislatura=20",
+  "RENATO MACHADO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/506?Legislatura=20",
+  "RENATO MIRANDA": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/488?Legislatura=20",
+  "RODRIGO AMORIM": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/443?Legislatura=20",
+  "ROSENVERG REIS": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/343?Legislatura=20",
+  "SAMUEL MALAFAIA": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/348?Legislatura=20",
+  "SARAH PONCIO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/515?Legislatura=20",
+  "SERGIO FERNANDES": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/452?Legislatura=20",
+  "THIAGO GAGLIASSO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/480?Legislatura=20",
+  "TIA JU": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/395?Legislatura=20",
+  "VAL CEASA": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/449?Legislatura=20",
+  "VALDECY DA SAÚDE": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/450?Legislatura=20",
+  "VERÔNICA LIMA": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/486?Legislatura=20",
+  "VINICIUS COZZOLINO": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/483?Legislatura=20",
+  "VITOR JUNIOR": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/493?Legislatura=20",
+  "WELLINGTON JOSÉ": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/468?Legislatura=20",
+  "YURI MOURA": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/503?Legislatura=20",
+  "ZEIDAN": "https://www.alerj.rj.gov.br/Deputados/PerfilDeputado/402?Legislatura=20"
+};
+const PHOTO_CREDITS = {
+  "FABIANI VASCONCELLOS": "Foto de candidatura — Eleições 2022 (Folha)"
+};
+function personPhoto(person) {
+  const rawName = person?.display_name || person?.full_name || "";
+  const key = normalize(rawName).toUpperCase().replace(/\s+/g," ").trim();
+  // Normalização remove acentos; as chaves oficiais são comparadas sem acentuação.
+  const photoEntry = Object.entries(PUBLIC_PHOTOS).find(([name]) => normalize(name).toUpperCase() === key);
+  const profileEntry = Object.entries(ALERJ_PROFILE_URLS).find(([name]) => normalize(name).toUpperCase() === key);
+  const photoUrl = photoEntry?.[1] || "";
+  const profileUrl = person?.official_profile_url || profileEntry?.[1] || "";
+  const initials = rawName.split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join("").toUpperCase() || "AL";
+  return { photoUrl, profileUrl, initials, hasOfficialPhoto: Boolean(photoUrl), credit: PHOTO_CREDITS[key] || "Foto oficial ALERJ" };
+}
+function setStatus(text, state="normal") {
+  const el=$("connectionStatus");
+  el.textContent = (state==="ok"?"● ":state==="error"?"● ":"● ")+text;
+  el.style.color=state==="ok"?"#177254":state==="error"?"#9a3c3c":"#936b1b";
+  el.style.background=state==="ok"?"#e7f5ef":state==="error"?"#fff1f0":"#fff6df";
+  el.style.borderColor=state==="ok"?"#cce8dc":state==="error"?"#f2ceca":"#f4e3b8";
+}
+function showConnectionError(message) {
+  $("connectionError").innerHTML = `<div class="error"><b>Não foi possível carregar os dados do Supabase.</b><br>${escapeHTML(message)}<br>Confira a URL, a chave pública, a conexão com a internet e as políticas de leitura (RLS). Nenhum dado fictício será exibido.</div>`;
+}
+async function loadData() {
+  setStatus("Conectando ao banco...");
+  $("activityList").innerHTML='<div class="empty">Consultando o banco de dados...</div>';
+  try {
+    const results = await Promise.all([
+      supabaseClient.from("parliamentarians").select("*").eq("is_public",true),
+      supabaseClient.from("mandates").select("*").eq("is_public",true),
+      supabaseClient.from("activities").select("*").eq("is_public",true).eq("status","published"),
+      supabaseClient.from("sources").select("*")
+    ]);
+    const labels=["parliamentarians","mandates","activities","sources"];
+    const failed=results.map((r,i)=>r.error?`${labels[i]}: ${r.error.message}`:null).filter(Boolean);
+    if (failed.length) throw new Error(failed.join(" | "));
+    parliamentarians=results[0].data || [];
+    mandates=results[1].data || [];
+    const rawActivities=results[2].data || [];
+    sources=results[3].data || [];
+    const peopleById=new Map(parliamentarians.map(p=>[p.id,p]));
+    const sourceById=new Map(sources.map(s=>[s.id,s]));
+    records=rawActivities.map(a=>{
+      const person=peopleById.get(a.parliamentarian_id);
+      const source=sourceById.get(a.source_id);
+      const kind=kindLabel(a.activity_type);
+      const proof=proofLabels[String(a.verification_level || "").toLowerCase()] || "Nível não informado";
+      return {
+        id:a.id, kind, rawKind:a.activity_type || "", level:person?levelOf(person):"Não identificada",
+        title:a.title || "Atividade sem título", desc:a.description || "Descrição não informada.",
+        who:person?(person.display_name || person.full_name || "Parlamentar sem nome cadastrado"):"Parlamentar não identificado",
+        date:formatDate(a.activity_date), rawDate:a.activity_date, status:a.status || "Não informado",
+        proof, verificationLevel:a.verification_level || "", verified:isVerified(a.verification_level),
+        sourceTitle:source?.title || "", sourceInstitution:source?.institution || "",
+        sourceUrl:source?.source_url || "", sourceType:source?.source_type || "",
+        protocol:a.protocol_number || "", icon:kindIcon(kind)
+      };
+    });
+    $("connectionError").innerHTML="";
+    updateMetrics();
+    renderSources();
+    renderList();
+    setStatus("Dados conectados", "ok");
+  } catch (error) {
+    console.error("Falha ao consultar Supabase:",error);
+    records=[]; parliamentarians=[]; mandates=[]; sources=[];
+    updateMetrics(); renderList();
+    setStatus("Falha na conexão", "error");
+    showConnectionError(error.message || "Erro desconhecido.");
+  }
+}
+function updateMetrics() {
+  $("metricParliamentarians").textContent=String(parliamentarians.length);
+  $("metricProposals").textContent=String(records.filter(r=>r.kind==="Proposição").length);
+  $("metricVerified").textContent=String(records.filter(r=>r.verified).length);
+  const municipalities=new Set(parliamentarians.map(p=>String(p.municipality||"").trim()).filter(Boolean));
+  $("metricMunicipalities").textContent=String(municipalities.size);
+}
+function renderSources() {
+  const official=[
+    {name:"ALERJ — Assembleia Legislativa do RJ",url:"https://www.alerj.rj.gov.br/",detail:"Portal institucional"},
+    {name:"Câmara Municipal do Rio de Janeiro",url:"https://www.camara.rio/",detail:"Portal institucional"},
+    {name:"Diário Oficial do Estado do RJ",url:"https://www.ioerj.com.br/",detail:"Portal institucional"}
+  ];
+  const linked=sources.filter(s=>s.source_url);
+  const all=[...official,...linked.map(s=>({name:s.title || s.institution || "Fonte oficial",url:s.source_url,detail:s.institution || s.source_type || "Fonte vinculada a registro público"}))];
+  const unique=[...new Map(all.map(s=>[s.url,s])).values()];
+  $("sourceList").innerHTML=unique.map(s=>`<div class="source-row"><span class="source-dot"></span><div><strong>${escapeHTML(s.name)}</strong><small>${escapeHTML(s.detail)}</small></div><a class="right" href="${escapeHTML(s.url)}" target="_blank" rel="noopener noreferrer">Abrir ↗</a></div>`).join("");
+}
+function filteredRecords() {
+  const q=normalize($("search").value), kind=$("kind").value, level=$("level").value;
+  return records.filter(r=>{
+    const hay=normalize([r.title,r.desc,r.who,r.protocol,r.sourceTitle,r.sourceInstitution].join(" "));
+    const tabOK=activeTab==="todos" || (activeTab==="verificados" && r.verified) || (activeTab==="declarados" && !r.verified);
+    const viewOK=currentView==="inicio" || currentView==="fontes" || (currentView==="parlamentares" ? false : currentView==="proposicoes" ? r.kind==="Proposição" : currentView==="fiscalizacao" ? r.kind==="Fiscalização" : true);
+    return (!q||hay.includes(q)) && (!kind||r.kind===kind) && (!level||r.level===level) && tabOK && viewOK;
+  });
+}
+function renderList() {
+  const list=$("activityList");
+  if(currentView==="fontes") {
+    list.innerHTML='<div class="empty">As fontes oficiais estão relacionadas no painel abaixo. Fontes cadastradas no banco aparecem ali quando vinculadas a registros publicados.</div>';
+    return;
+  }
+  if(currentView==="parlamentares") {
+    const q=normalize($("search").value);
+    const people=parliamentarians.filter(p=>normalize([p.full_name,p.display_name,p.party,p.municipality,p.office_type,p.legislative_house].join(" ")).includes(q));
+    if(!people.length){list.innerHTML='<div class="empty">Nenhum parlamentar público cadastrado corresponde à busca. Isso não significa ausência de mandato ou atividade.</div>';return;}
+    list.innerHTML=people.map(p=>{
+      const photo=personPhoto(p);
+      const name=p.display_name||p.full_name||"Nome não informado";
+      const profile=photo.profileUrl?`<a class="tag verified" href="${escapeHTML(photo.profileUrl)}" target="_blank" rel="noopener noreferrer">Perfil oficial ALERJ ↗</a>`:"";
+      const image=photo.photoUrl?`<img src="${escapeHTML(photo.photoUrl)}" alt="Foto oficial de ${escapeHTML(name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">`:"";
+      const credit=photo.hasOfficialPhoto?`<span class="photo-credit">${escapeHTML(photo.credit)}</span>`:`<span class="photo-credit">Foto pública não localizada</span>`;
+      return `<article class="activity person-card"><div class="person-photo"><span class="initials">${escapeHTML(photo.initials)}</span>${image}</div><div><h3>${escapeHTML(name)}</h3><p>${escapeHTML([p.office_type,p.party,p.municipality,p.legislative_house].filter(Boolean).join(" · ")||"Informações complementares não cadastradas")}</p><div class="meta"><span class="tag">${escapeHTML(levelOf(p))}</span>${profile}${credit}</div></div><div class="date">Cadastro público</div></article>`;
+    }).join("");
+    return;
+  }
+  const data=filteredRecords();
+  if(!data.length) {
+    const msg=records.length===0
+      ?"Nenhum registro público de atividade foi cadastrado até o momento. Isso não prova que a atividade parlamentar não ocorreu."
+      :"Nenhum registro corresponde aos filtros selecionados. Tente outra busca.";
+    list.innerHTML=`<div class="empty">${msg}</div>`;
+    return;
+  }
+  list.innerHTML=data.map(r=>{
+    const tagClass=r.verificationLevel==="contested"?"contested":r.verified?"verified":"declared";
+    return `<article class="activity"><div class="act-icon">${r.icon}</div><div><h3>${escapeHTML(r.title)}</h3><p>${escapeHTML(r.desc)}</p><div class="meta"><span class="tag">${escapeHTML(r.kind)}</span><span class="tag">${escapeHTML(r.level)}</span><span class="tag ${tagClass}">${escapeHTML(r.proof)}</span></div></div><div class="date">${escapeHTML(r.date)}<br><button class="right" style="border:0;background:none;color:#087f8c;font-size:10px;margin-top:8px" onclick="showRecord('${encodeURIComponent(r.id)}')">Ver ficha ↗</button></div></article>`;
+  }).join("");
+}
+function showRecord(encodedId) {
+  const id=decodeURIComponent(encodedId);
+  const r=records.find(x=>String(x.id)===id);
+  if(!r)return;
+  $("modalTitle").textContent=r.title;
+  const source=r.sourceUrl?`<p><b>Fonte:</b> ${escapeHTML(r.sourceTitle||r.sourceInstitution||"Documento de origem")} — <a href="${escapeHTML(r.sourceUrl)}" target="_blank" rel="noopener noreferrer">consultar documento ↗</a></p>`:'<p><b>Fonte:</b> não há link de fonte associado a este registro no banco.</p>';
+  $("modalBody").innerHTML=`<p>${escapeHTML(r.desc)}</p><div class="detail-grid"><div class="detail"><small>Tipo</small><b>${escapeHTML(r.rawKind||r.kind)}</b></div><div class="detail"><small>Esfera</small><b>${escapeHTML(r.level)}</b></div><div class="detail"><small>Parlamentar</small><b>${escapeHTML(r.who)}</b></div><div class="detail"><small>Status</small><b>${escapeHTML(r.status)}</b></div><div class="detail"><small>Data da atividade</small><b>${escapeHTML(r.date)}</b></div><div class="detail"><small>Protocolo</small><b>${escapeHTML(r.protocol||"Não informado")}</b></div><div class="detail"><small>Verificação</small><b>${escapeHTML(r.proof)}</b></div></div>${source}<p>A ausência de informação complementar não deve ser interpretada como prova de que a atividade não ocorreu.</p>`;
+  $("modal").classList.add("show");
+}
+function showModal(title) {
+  $("modalTitle").textContent=title;
+  $("modalBody").innerHTML=title==="Como funciona"
+  ?'<p>O Mandato em Foco organiza registros públicos da atividade legislativa e permite consultar a origem das informações. A plataforma não substitui a ALERJ, as Câmaras Municipais nem os respectivos portais oficiais.</p><p>Os dados são consultados no banco do projeto. A visibilidade de cada registro depende das políticas de acesso e dos critérios de publicação.</p><p>O sistema não presume que a ausência de registro signifique ausência de atividade.</p>'
+  :'<p><b>1. Sistema oficial:</b> informação obtida diretamente em sistema ou base oficial.</p><p><b>2. Documento oficial:</b> existe documento público identificável associado ao registro.</p><p><b>3. Declarado, não verificado:</b> informação fornecida por gabinete ou terceiro, sem confirmação documental independente.</p><p><b>4. Contestado:</b> há divergência ou pedido de revisão pendente.</p><p><b>5. Corrigido:</b> informação corrigida, mantendo histórico auditável.</p><p>A classificação deve refletir a evidência disponível, não uma avaliação subjetiva do parlamentar.</p>';
+  $("modal").classList.add("show");
+}
+function closeModal(){$("modal").classList.remove("show");}
+document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active");activeTab=b.dataset.tab;renderList();
+}));
+document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active");currentView=b.dataset.view;
+  $("crumb").textContent=b.querySelector(".label").textContent;
+  const titles={inicio:["Atividade parlamentar","Registros públicos cadastrados na plataforma"],parlamentares:["Parlamentares","Catálogo de parlamentares com cadastro público"],proposicoes:["Proposições legislativas","Registros classificados como proposições"],fiscalizacao:["Fiscalização e controle","Pedidos, respostas e providências cadastrados"],fontes:["Fontes oficiais","Portais e documentos de origem"]};
+  $("panelTitle").textContent=titles[currentView][0];$("panelSub").textContent=titles[currentView][1];
+  $("quickActions").style.display=currentView==="inicio"?"grid":"none";
+  $("search").placeholder=currentView==="fontes"?"Consulte as fontes no painel abaixo...":currentView==="parlamentares"?"Buscar por nome, partido ou município...":"Buscar por assunto, parlamentar ou documento...";
+  $("kind").disabled=currentView==="parlamentares"||currentView==="fontes";
+  $("level").disabled=currentView==="parlamentares"||currentView==="fontes";
+  renderList();
+}));
+document.querySelectorAll("[data-go-view]").forEach(button=>button.addEventListener("click",()=>{
+  const target=button.dataset.goView;
+  const navButton=document.querySelector(`.nav button[data-view="${target}"]`);
+  if(navButton) navButton.click();
+}));
+loadData();
+</script>
+</body>
+</html>
